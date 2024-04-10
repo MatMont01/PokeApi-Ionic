@@ -1,0 +1,34 @@
+<ion-content class="pokdex-list-sort-by">
+  <div class="frame">
+    <div class="div">
+      <img class="pokeball" ngSrc="assets/img/pokeball.svg" alt="pokeball" height="16" width="16"/>
+      <div class="text-wrapper">Pokédex</div>
+    </div>
+    <div class="div">
+      <div class="search-bar">
+        <img class="img" ngSrc="assets/img/search.svg" alt="search" height="16" width="16"/>
+        <ion-input [(ngModel)]="searchTerm" (ngModelChange)="searchPokemon(searchTerm)" name="searchTerm"
+                   class="text-wrapper-2"></ion-input>
+      </div>
+      <div class="sort-button">
+        <img src="assets/img/tag.svg" alt="Imagen descriptiva" (click)="openSelect()">
+        <ion-select #select [(ngModel)]="searchType" style="display: none;">
+          <ion-select-option value="number">Number</ion-select-option>
+          <ion-select-option value="name">Name</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+  </div>
+  <div class="list">
+    <div class="row" *ngFor="let pokemon of pokemons; let i = index">
+      <div class="list-item" (click)="goToPokemonDetails(pokemon)">
+        <div class="number">#{{ pokemon.id }}</div>
+        <img [src]="pokemon.image" alt="{{ pokemon.name }}">
+        <div class="name">
+          <div class="pok-mon-name">{{ pokemon.name }}</div>
+        </div>
+      </div>
+      <div *ngIf="(i + 1) % 3 === 0" class="row"></div>
+    </div>
+  </div>
+</ion-content>

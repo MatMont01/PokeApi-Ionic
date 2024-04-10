@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="pokemon-name">{{ pokemon?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class="pokemon-card" [ngStyle]="{'background-color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+    <header class="pokemon-header">
+      <ion-button class="transparent-button" (click)="goBack()">
+        <img
+          src="assets/img/arrow_back.svg"
+          alt="Pokeball icon" class="pokemon-icon"/>
+      </ion-button>
+      <h1 class="pokemon-name">{{ pokemon?.name }}</h1>
+      <p class="pokemon-number">#{{ pokemon?.id }}</p>
+    </header>
+
+    <div class="pokemon-image-container">
+      <div class="pokemon-image-wrapper pokemon-image-background">
+        <ion-img [src]="pokemon?.sprites.front_default" alt="{{ pokemon?.name }}" class="pokemon-image"></ion-img>
+      </div>
+      <img
+        src="assets/img/chevron_right.svg"
+        alt="right arrow" class="next-pokemon-arrow" (click)="goToNextPokemon()"/>
+    </div>
+
+    <div class="pokemon-details">
+      <div class="pokemon-types">
+        <ion-chip *ngFor="let type of pokemon?.types"
+                  [ngStyle]="{'background-color': getBackgroundColor(type.type.name)}">
+          <ion-label>{{ type.type.name }}</ion-label>
+        </ion-chip>
+      </div>
+
+      <h2 class="pokemon-about-title" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+        About</h2>
+
+      <div class="pokemon-about-details">
+        <div class="pokemon-weight">
+          <div class="pokemon-weight-value">
+            <img
+              src="assets/img/weight.svg"
+              alt="Weight icon" class="pokemon-weight-icon"/>
+            <p class="pokemon-weight-text">{{ pokemon?.weight }} kg</p>
+          </div>
+          <p class="pokemon-weight-label">Weight</p>
+        </div>
+
+        <div class="pokemon-about-divider" aria-hidden="true"></div>
+
+        <div class="pokemon-height">
+          <div class="pokemon-height-value">
+            <img
+              src="assets/img/straighten.svg"
+              alt="Height icon" class="pokemon-height-icon"/>
+            <p class="pokemon-height-text">{{ pokemon?.height }} m</p>
+          </div>
+          <p class="pokemon-height-label">Height</p>
+        </div>
+
+        <div class="pokemon-about-divider" aria-hidden="true"></div>
+
+        <div class="pokemon-moves">
+          <p class="pokemon-moves-text">
+            <span *ngFor="let move of pokemon?.moves.slice(0, 2)">{{ move.move.name }}</span>
+          </p>
+          <p class="pokemon-moves-label">Moves</p>
+        </div>
+
+      </div>
+
+      <p class="pokemon-description">
+        {{ pokemon?.characteristic }}
+      </p>
+
+      <h2 class="pokemon-stats-title" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">Base
+        Stats</h2>
+
+      <div class="pokemon-stats">
+        <div class="pokemon-stats-labels">
+          <p class="pokemon-stats-label" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">HP</p>
+          <p class="pokemon-stats-label" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+            ATK</p>
+          <p class="pokemon-stats-label" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+            DEF</p>
+          <p class="pokemon-stats-label" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+            SATK</p>
+          <p class="pokemon-stats-label" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+            SDEF</p>
+          <p class="pokemon-stats-label" [ngStyle]="{'color': getBackgroundColor(pokemon?.types[0]?.type?.name)}">
+            SPD</p>
+        </div>
+
+        <div class="pokemon-stats-divider" aria-hidden="true"></div>
+
+        <div class="pokemon-stats-values">
+          <p *ngFor="let stat of pokemon?.stats">
+            <ion-label class="pokemon-stats-value">{{ stat.base_stat }}</ion-label>
+          </p>
+        </div>
+
+        <div class="pokemon-stats-bars">
+          <div class="pokemon-stats-bar" *ngFor="let stat of pokemon?.stats">
+            <div class="pokemon-stats-bar-fill"
+                 [style.background-color]="getBackgroundColor(pokemon?.types[0]?.type?.name)"
+                 [style.width.%]="stat.base_stat"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>
